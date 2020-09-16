@@ -1,0 +1,69 @@
+---
+title: "p8105_hw1_yl4606"
+author: "Yubei Liang"
+date: "9/16/2020"
+output: github_document
+---
+
+This is my solution to HW1.
+
+```{r package, message=FALSE}
+library(tidyverse)
+data("penguins", package = "palmerpenguins")
+```
+
+## Problem 1 
+
+1. Create a data frame with the specified elements.
+
+```{r dataframe, warning=FALSE}
+prob1_df = 
+  tibble(
+    samp = rnorm(10),
+    samp_gt_0 = samp > 0,
+    char_vec = c("a","b","c","d","e","f","g","h","i","j"),
+    factor_vec = factor(c("low","low","low","mod","mod","mod","mod","high","high","high"))
+  )
+```
+
+2. Take the mean of each variable in my data frame.
+
+```{r mean, warning=FALSE}
+mean(pull(prob1_df, samp))
+mean(pull(prob1_df, samp_gt_0))
+mean(pull(prob1_df, char_vec))
+mean(pull(prob1_df, factor_vec))
+```
+
+Therefore, I cannot take the mean of character and factor variables. Let's try to transform variables in the data frame to numeric.
+
+```{r as.numeric, warning=FALSE}
+as.numeric(pull(prob1_df, samp))
+as.numeric(pull(prob1_df, samp_gt_0))
+as.numeric(pull(prob1_df, char_vec))
+as.numeric(pull(prob1_df, factor_vec))
+```
+
+The character vector cannot be transformed to numeric, and factor vector is transformed to meaningless numbers. So I think that is why their mean cannot be calculated.
+
+3. Convert logical vector to other data types and then do multiplication.
+
+```{r logical_vector, warning=FALSE}
+as.numeric(pull(prob1_df, samp_gt_0)) * pull(prob1_df, samp)
+as.factor(pull(prob1_df, samp_gt_0)) * pull(prob1_df, samp)
+as.numeric(as.factor(pull(prob1_df, samp_gt_0))) * pull(prob1_df, samp)
+```
+
+
+
+## Problem 2
+
+1. This 'penguins' dataset records variables of Antarctica penguins including species, island, bill length in millimetre, bill depth in millimetre, flipper length in millimetre, bofy mass in gram, sex and year of born. Species listed here are Gentoo, Chinstrap, Adelie. And they live in distinct islands Biscoe, Dream, Torgerson. The bill length ranges from 32.1mm to 59.6mm, bill depth ranges from 13.1mm to 21.5mm and flipper length ranges from 172mm to 231mm. Body mass ranges from 2700g to 6300g. The data has `r nrow(penguins)` rows and `r ncol(penguins)` columns. The mean of flipper length is `r mean(penguins$flipper_length_mm,na.rm=T)` mm (two rows of NA are removed).
+
+2. Make a scatterplot of flipper_length_mm (y) vs bill_length_mm (x).
+
+```{r scatterplot, warning=FALSE}
+ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point()
+ggsave("penguins_scatter_plot.pdf", height = 4, width = 6)
+```
+
