@@ -58,7 +58,7 @@ as.numeric(as.factor(pull(prob1_df, samp_gt_0))) * pull(prob1_df, samp)
 
 ## Problem 2
 
-1. This 'penguins' dataset records variables of Antarctica penguins including species, island, bill length in millimetre, bill depth in millimetre, flipper length in millimetre, bofy mass in gram, sex and year of born. Species listed here are Gentoo, Chinstrap, Adelie. And they live in distinct islands Biscoe, Dream, Torgerson. The bill length ranges from 32.1mm to 59.6mm, bill depth ranges from 13.1mm to 21.5mm and flipper length ranges from 172mm to 231mm. Body mass ranges from 2700g to 6300g. The data has `r nrow(penguins)` rows and `r ncol(penguins)` columns. The mean of flipper length is `r mean(penguins$flipper_length_mm,na.rm=T)` mm (two rows of NA are removed).
+1. This 'penguins' dataset records variables of Antarctica penguins including `r ls(penguins)`. The values of these variable are summarized as below: Those penguins can be categorized into species `r levels(pull(penguins, species))`. They live in distinct islands `r levels(pull(penguins, island))`. The bill length range is `r range(pull(penguins, bill_length_mm), na.rm = T)` in mm, bill depth range is `r range(pull(penguins, bill_depth_mm), na.rm = T)` in mm and flipper length range is `r range(pull(penguins, flipper_length_mm), na.rm = T)` in mm. Body mass range is `r range(pull(penguins, body_mass_g), na.rm = T)` in grams. The data has `r nrow(penguins)` rows and `r ncol(penguins)` columns. The year range is `r range(pull(penguins, year), na.rm = T)`. The sex includes `r levels(pull(penguins, sex))`. The mean of flipper length is `r mean(pull(penguins,flipper_length_mm),na.rm=T)` mm (two rows of NA are removed).
 
 2. Make a scatterplot of flipper_length_mm (y) vs bill_length_mm (x).
 
